@@ -42,12 +42,12 @@ class InformationGain:
         for i in range(len(self.nonzeroPosition[0])):
             if  i ==0:
                 flag = False
-                for notappear in range(pre, self.nonzeroPosition[0][i]-1):  # 如果一个词在整个样本集中都未出现，则直接赋为0
+                for notappear in range(pre, self.nonzeroPosition[0][i]):  # 如果一个词在整个样本集中都未出现，则直接赋为0
                     self.igResult.append(0.0)
                     pre +=1
                     flag = True
                 if flag:
-                    pre-=1
+                    pre-=0
             if i !=0 and  self.nonzeroPosition[0][i] != pre:
                 for notappear in range(pre+1, self.nonzeroPosition[0][i]):  # 如果一个词在整个样本集中都未出现，则直接赋为0
                     self.igResult.append(0.0)
@@ -68,6 +68,10 @@ class InformationGain:
         # 补上后面的全零的情况
         for ii in range(self.nonzeroPosition[0][i]+1,len(self.X[0])):
             self.igResult.append(0.)
+        if len(self.igResult)!= len(self.X[0]):
+            print 'size is not same'
+        else :
+            print 'nice'
 
 # 计算ig的主要函数
     def cal_information_gain(self):
@@ -100,7 +104,7 @@ sample
 '''
 if __name__ == '__main__':
 
-    X = np.array([[1,1,0,0,0],[1,0,1,0,0],[0,0,1,0,0]])
+    X = np.array([[0,0,1,1,0,0,0],[0,0,1,0,1,0,0],[0,0,0,0,1,0,0]])
     y = [2,3,3]
     print(X)
     print(y)
