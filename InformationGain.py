@@ -49,10 +49,18 @@ class InformationGain:
                 if flag:
                     pre-=0
             if i !=0 and  self.nonzeroPosition[0][i] != pre:
-                for notappear in range(pre+1, self.nonzeroPosition[0][i]):  # 如果一个词在整个样本集中都未出现，则直接赋为0
-                    self.igResult.append(0.0)
-                ig = self.cal_information_gain()
-                self.igResult.append(ig)
+                if True:
+                    ig = self.cal_information_gain()
+                    self.igResult.append(ig)
+                if i ==1 or pre==0 :
+                    for notappear in range(pre, self.nonzeroPosition[0][0]):  # 如果一个词在整个样本集中都未出现，则直接赋为0
+                        self.igResult.append(0.0)
+                else:
+                    for notappear in range(pre+1, self.nonzeroPosition[0][i]):  # 如果一个词在整个样本集中都未出现，则直接赋为0
+                        self.igResult.append(0.0)
+
+                # if flag:
+                #     flag = False
                 self.wordExistSampleCount = 0
                 self.wordExistClassCountDict = {}
                 pre = self.nonzeroPosition[0][i]
@@ -104,7 +112,7 @@ sample
 '''
 if __name__ == '__main__':
 
-    X = np.array([[0,0,1,1,0,0,0],[0,0,1,0,1,0,0],[0,0,0,0,1,0,0]])
+    X = np.array([[0,1,1,0,1,1,0],[0,1,0,0,1,0,0],[0,1,0,0,1,1,0]])
     y = [2,3,3]
     print(X)
     print(y)
